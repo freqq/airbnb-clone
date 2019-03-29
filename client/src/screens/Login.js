@@ -3,6 +3,7 @@ import colors from '../styles/colors'
 import InputField from '../components/form/InputField'
 import NextArrowButton from '../components/buttons/NextArrowButton'
 import Notification from '../components/Notification'
+import Loader from '../components/Loader'
 import {View, Text, ScrollView, StyleSheet, KeyboardAvoidingView} from 'react-native'
 
 export default class Login extends Component {
@@ -11,15 +12,21 @@ export default class Login extends Component {
         validEmail: false,
         emailAdress: '',
         validPassword: false,
-        password: ''
+        password: '',
+        loadingVisible: false
     }
 
     handleNextButton = () => {
-        if(this.state.emailAdress === 'hello@imandy.ie'){
-            this.setState({formValid: true})
-        } else {
-            this.setState({formValid: false})
-        }
+        this.setState({loadingVisible: true})
+        setTimeout(() => {
+            if (this.state.emailAdress === 'hello@imandy.ie' && this.state.validPassword) {
+                this.setState({formValid: true})
+            } else {
+                this.setState({formValid: false})
+            }
+            this.setState({loadingVisible: false})
+        }, 2000)
+
     }
 
     handleCloseNotification = () => {
@@ -39,28 +46,28 @@ export default class Login extends Component {
         }
     }
 
-    handlePasswordChange = (password) => { 
-        const { validPassword } = this.state;
-        this.setState({ password });
-    
+    handlePasswordChange = (password) => {
+        const {validPassword} = this.state;
+        this.setState({password});
+
         if (!validPassword) {
-          if (password.length > 4) {
-            this.setState({ validPassword: true });
-          }
+            if (password.length > 4) {
+                this.setState({validPassword: true});
+            }
         } else if (password <= 4) {
-          this.setState({ validPassword: false });
+            this.setState({validPassword: false});
         }
     }
 
     toggleNextButtonState = () => {
-        const {validEmail,  validPassword} = this.state
-        if(validEmail && validPassword)
+        const {validEmail, validPassword} = this.state
+        if (validEmail && validPassword) 
             return false
         return true
     }
 
     render() {
-        const {formValid} = this.state
+        const { formValid, loadingVisible, validEmail, validPassword } = this.state
         const showNotificaion = formValid
             ? false
             : true
@@ -91,6 +98,8 @@ export default class Login extends Component {
                             borderBottomColor={colors.white}
                             inputType="email"
                             onChangeText={this.handleEmailChange}
+                            showCheckmark={validEmail}
+                            autoFocus={true}
                             customStyle={{
                             marginBottom: 30
                         }}/>
@@ -102,6 +111,7 @@ export default class Login extends Component {
                             borderBottomColor={colors.white}
                             inputType="password"
                             onChangeText={this.handlePasswordChange}
+                            showCheckmark={validPassword}
                             customStyle={{
                             marginBottom: 30
                         }}/>
@@ -116,7 +126,12 @@ export default class Login extends Component {
                             }
                         ]}/>
                     </View>
-                    <View>
+                    <View
+                        style={[
+                        styles.notificationWrapper, {
+                            marginTop: notificationMarginTop
+                        }
+                    ]}>
                         <Notification
                             type="Error"
                             firstLine="Those credentials don't look right."
@@ -125,6 +140,7 @@ export default class Login extends Component {
                             handleCloseNotification={this.handleCloseNotification}/>
                     </View>
                 </View>
+                <Loader animationType="fade" modalVisible={loadingVisible}/>
             </KeyboardAvoidingView>
         );
     }
@@ -154,11 +170,10 @@ const styles = StyleSheet.create({
     nextButton: {
         alignItems: 'flex-end',
         right: 20,
-        bottom: -30
+        bottom: 20
     },
     notificationWrapper: {
         position: 'absolute',
-        bottom: 0,
-        zIndex: 9
+        bottom: 0
     }
 })

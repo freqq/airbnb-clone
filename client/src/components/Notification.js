@@ -13,7 +13,7 @@ import {
 
 class Notification extends Component {
     state = {
-        positionValue: new Animated.Value(60)
+        positionValue: new Animated.Value(-60)
     }
 
     animateNotification = (value) => {
@@ -22,7 +22,7 @@ class Notification extends Component {
             positionValue,
             {
                 toValue: value,
-                duration: 400,
+                duration: 300,
                 velocity: 3,
                 tension: 2,
                 friction: 8,
@@ -38,10 +38,10 @@ class Notification extends Component {
     render() {
         const { type, firstLine, secondLine, showNotificaion } = this.props
         const { positionValue } = this.state
-        showNotificaion ? this.animateNotification(0) : this.animateNotification(60)
+        showNotificaion ? this.animateNotification(0) : this.animateNotification(-60)
 
         return (
-            <Animated.View style={[{transform: [{translateY: positionValue}]}, styles.wrapper]}>
+            <Animated.View style={[{marginBottom: positionValue}, styles.wrapper]}>
                 <View style={styles.notificationContent}>
                     <Text style={styles.notificationType}>{type}</Text>
                     <Text style={styles.notificationMessage}>{firstLine}</Text>
