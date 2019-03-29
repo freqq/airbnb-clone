@@ -3,69 +3,126 @@ import colors from '../styles/colors'
 import InputField from '../components/form/InputField'
 import NextArrowButton from '../components/buttons/NextArrowButton'
 import Notification from '../components/Notification'
-import {
-    View,
-    Text,
-    ScrollView,
-    StyleSheet,
-    KeyboardAvoidingView
-} from 'react-native'
+import {View, Text, ScrollView, StyleSheet, KeyboardAvoidingView} from 'react-native'
 
 export default class Login extends Component {
     state = {
-        formValid: false
+        formValid: true,
+        validEmail: false,
+        emailAdress: '',
+        validPassword: false,
+        password: ''
     }
 
     handleNextButton = () => {
-        alert('next button')
+        if(this.state.emailAdress === 'hello@imandy.ie'){
+            this.setState({formValid: true})
+        } else {
+            this.setState({formValid: false})
+        }
     }
 
     handleCloseNotification = () => {
         this.setState({formValid: true})
     }
 
+    handleEmailChange = (email) => {
+        const emailCheckRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const {validEmail} = this.state;
+        this.setState({emailAddress: email});
+        if (!validEmail) {
+            if (emailCheckRegex.test(email)) {
+                this.setState({validEmail: true});
+            }
+        } else if (!emailCheckRegex.test(email)) {
+            this.setState({validEmail: false});
+        }
+    }
+
+    handlePasswordChange = (password) => { 
+        const { validPassword } = this.state;
+        this.setState({ password });
+    
+        if (!validPassword) {
+          if (password.length > 4) {
+            this.setState({ validPassword: true });
+          }
+        } else if (password <= 4) {
+          this.setState({ validPassword: false });
+        }
+    }
+
+    toggleNextButtonState = () => {
+        const {validEmail,  validPassword} = this.state
+        if(validEmail && validPassword)
+            return false
+        return true
+    }
+
     render() {
-        const { formValid } = this.state
-        const showNotificaion = formValid ? false : true
-        const background = formValid ? colors.green01 : colors.darkOrange
+        const {formValid} = this.state
+        const showNotificaion = formValid
+            ? false
+            : true
+        const background = formValid
+            ? colors.green01
+            : colors.darkOrange
+        const notificationMarginTop = showNotificaion
+            ? 10
+            : 0
 
         return (
-            <KeyboardAvoidingView 
-                style={[{backgroundColor: background}, styles.wrapper]}
+            <KeyboardAvoidingView
+                style={[
+                {
+                    backgroundColor: background
+                },
+                styles.wrapper
+            ]}
                 behavior="padding">
                 <View style={styles.scrollViewWrapper}>
                     <ScrollView style={styles.scrollView}>
                         <Text style={styles.loginHeader}>Log In</Text>
-                        <InputField 
+                        <InputField
                             labelText="Email Adress"
                             labelTextSize={14}
-                            labelColor={colors.white} 
+                            labelColor={colors.white}
                             textColor={colors.white}
                             borderBottomColor={colors.white}
-                            inputType="email" 
-                            customStyle={{marginBottom: 30}} />
-                        <InputField 
+                            inputType="email"
+                            onChangeText={this.handleEmailChange}
+                            customStyle={{
+                            marginBottom: 30
+                        }}/>
+                        <InputField
                             labelText="Password"
                             labelTextSize={14}
                             labelColor={colors.white}
-                            textColor={colors.white}  
+                            textColor={colors.white}
                             borderBottomColor={colors.white}
-                            inputType="password" 
-                            customStyle={{marginBottom: 30}} />
+                            inputType="password"
+                            onChangeText={this.handlePasswordChange}
+                            customStyle={{
+                            marginBottom: 30
+                        }}/>
                     </ScrollView>
                     <View style={styles.nextButton}>
-                        <NextArrowButton 
+                        <NextArrowButton
                             handleNextButton={this.handleNextButton}
-                        />
+                            disabled={this.toggleNextButtonState()}
+                            style={[
+                            styles.notificationWrapper, {
+                                marginTop: notificationMarginTop
+                            }
+                        ]}/>
                     </View>
                     <View>
-                        <Notification 
+                        <Notification
                             type="Error"
                             firstLine="Those credentials don't look right."
                             secondLine="Please try again."
                             showNotificaion={showNotificaion}
-                            handleCloseNotification={this.handleCloseNotification}
-                        />
+                            handleCloseNotification={this.handleCloseNotification}/>
                     </View>
                 </View>
             </KeyboardAvoidingView>
@@ -97,6 +154,11 @@ const styles = StyleSheet.create({
     nextButton: {
         alignItems: 'flex-end',
         right: 20,
-        bottom: 30
+        bottom: -30
+    },
+    notificationWrapper: {
+        position: 'absolute',
+        bottom: 0,
+        zIndex: 9
     }
 })

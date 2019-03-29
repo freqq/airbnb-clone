@@ -12,6 +12,7 @@ class NextArrowButton extends Component {
         return (
             <TouchableHighlight 
             style={[opacityStyle, styles.button]}
+            disabled={disabled}
             onPress={handleNextButton}>
                 <Icon 
                     name="angle-right"
