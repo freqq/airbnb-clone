@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     },
     inputField: {
         borderBottomWidth: 1,
-        paddingTop: 5,
+        paddingTop: 15,
         paddingBottom: 5
     },
     showButton: {
