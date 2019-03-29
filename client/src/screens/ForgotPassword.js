@@ -93,10 +93,7 @@ class ForgotPassword extends Component {
                     <NextArrowButton
                         handleNextButton={this.goToNextStep}
                         disabled={this.toggleNextButtonState()}
-                            style={[
-                            styles.notificationWrapper, {
-                                marginTop: notificationMarginTop
-                            } ]}
+                        style={[styles.notificationWrapper, {marginTop: notificationMarginTop}]}
                     />
                 </View>
                 <View

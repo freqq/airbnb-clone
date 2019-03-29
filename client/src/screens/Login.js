@@ -4,9 +4,13 @@ import InputField from '../components/form/InputField'
 import NextArrowButton from '../components/buttons/NextArrowButton'
 import Notification from '../components/Notification'
 import Loader from '../components/Loader'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { ActionCreators } from '../redux/actions'
+import { transparentHeaderStyle } from '../styles/navigation'
 import {View, Text, ScrollView, StyleSheet, KeyboardAvoidingView} from 'react-native'
 
-export default class Login extends Component {
+class Login extends Component {
     state = {
         formValid: true,
         validEmail: false,
@@ -15,6 +19,11 @@ export default class Login extends Component {
         password: '',
         loadingVisible: false
     }
+
+    static navigationOptions = ({navigation}) => ({
+        headerStyle: transparentHeaderStyle,
+        headerTintColor: colors.white
+    })
 
     handleNextButton = () => {
         this.setState({loadingVisible: true})
@@ -48,7 +57,7 @@ export default class Login extends Component {
 
     handlePasswordChange = (password) => {
         const {validPassword} = this.state;
-        this.setState({password});
+        this.setState({password: password});
 
         if (!validPassword) {
             if (password.length > 4) {
@@ -77,6 +86,7 @@ export default class Login extends Component {
         const notificationMarginTop = showNotificaion
             ? 10
             : 0
+        console.log(this.props.loggedInStatus)
 
         return (
             <KeyboardAvoidingView
@@ -177,3 +187,15 @@ const styles = StyleSheet.create({
         bottom: 0
     }
 })
+
+const mapStateToProps = (state) => {
+    return {
+        loggedInStatus: state.loggedInStatus
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators(ActionCreators, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

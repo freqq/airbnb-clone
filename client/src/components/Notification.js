@@ -13,7 +13,7 @@ import {
 
 class Notification extends Component {
     state = {
-        positionValue: new Animated.Value(-60)
+        positionValue: new Animated.Value(-80)
     }
 
     animateNotification = (value) => {
@@ -38,7 +38,7 @@ class Notification extends Component {
     render() {
         const { type, firstLine, secondLine, showNotificaion } = this.props
         const { positionValue } = this.state
-        showNotificaion ? this.animateNotification(0) : this.animateNotification(-60)
+        showNotificaion ? this.animateNotification(0) : this.animateNotification(-80)
 
         return (
             <Animated.View style={[{marginBottom: positionValue}, styles.wrapper]}>
@@ -68,7 +68,7 @@ Notification.propTypes = {
 const styles = StyleSheet.create({
     wrapper: {
         backgroundColor: colors.white,
-        height: 60,
+        height: 80,
         width: '100%',
         padding: 10
     },
