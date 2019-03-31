@@ -8,8 +8,9 @@ import NavBarButton from '../components/buttons/NavBarButton'
 
 export default class App extends Component {
     static navigationOptions = ({navigation}) => ({
-        headerRight: <NavBarButton handleButtonPress={() => navigation.navigate('LogIn')} location="right" color={colors.white} text="Log In"/>,
+        headerRight: <NavBarButton handleButtonPress={() => navigation.navigate('Login')} location="right" color={colors.white} text="Log In"/>,
         headerStyle: transparentHeaderStyle,
+        headerTransparent: true,
         headerTintColor: colors.white
     })
 

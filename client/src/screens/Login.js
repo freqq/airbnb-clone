@@ -21,7 +21,7 @@ class Login extends Component {
     }
 
     static navigationOptions = ({navigation}) => ({
-        headerStyle: transparentHeaderStyle,
+        headerTransparent: true,
         headerTintColor: colors.white
     })
 

@@ -1,11 +1,9 @@
-import createReducer from '../helpers/createReducer'
-import { NavigationActions } from 'react-navigation'
-import { AppNavigator } from '../../navigators/AppNavigator'
+import AppRouteConfigs from '../../navigators/AppRouteConfigs';
 
-const firstAction = AppNavigator.router.getActionForPathAndParams('LoggedOut')
-const initialNavState = AppNavigator.router.getStateForAction(firstAction)
+const firstAction = AppRouteConfigs.router.getActionForPathAndParams('LoggedOut')
+const initialNavState = AppRouteConfigs.router.getStateForAction(firstAction)
 
 export const nav = (state = initialNavState, action) => {
-    let nextstate = AppNavigator.router.getStateForAction(action, state)
+    let nextState = AppRouteConfigs.router.getStateForAction(action, state)
     return nextState || state
 }
