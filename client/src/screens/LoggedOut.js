@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, Image, TouchableHighlight} from 'react-native';
 import colors from '../styles/colors'
 import RoundedButton from '../components/buttons/RoundedButton'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { transparentHeaderStyle } from '../styles/navigation'
+import transparentHeaderStyle from '../styles/navigation'
 import NavBarButton from '../components/buttons/NavBarButton'
 
 export default class App extends Component {
