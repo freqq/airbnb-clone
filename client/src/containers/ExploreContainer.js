@@ -1,19 +1,47 @@
 import React, {Component} from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, ScrollView} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import colors from '../styles/colors'
+import SearchBar from '../components/explore/SearchBar'
+import Categories from '../components/explore/Categories'
+import Listings from '../components/explore/Listings'
+import categoriesList from '../data/CategoriesData'
+import listings from '../data/listings'
 
 class InboxContainer extends Component {
     static navigationOptions = {
         tabBarLabel: 'EXPLORE',
-        tabBarIcon: ({ tintColor }) => (
-            <Icon name="ios-search" size={22} color={tintColor}/>
-        )
+        tabBarIcon: ({tintColor}) => (<Icon name="ios-search" size={22} color={tintColor}/>)
+    }
+
+    renderListings() {
+        return listings.map((listing, index) => {
+            return (
+                <View key={`listing-${index}`}>
+                    <Listings
+                        key={`listing-item-${index}`}
+                        title={listing.title}
+                        listings={listing.listings}
+                        showAddToFav={listing.showAddToFav}
+                        boldTitle={listing.boldTitle}/>
+                </View>
+            )
+        })
     }
 
     render() {
         return (
             <View style={styles.wrapper}>
-                <Text>Explore</Text>
+                <SearchBar/>
+                <ScrollView
+                    style={styles.scrollView}
+                    contentContainerStyle={styles.scrollViewContent}>
+                    <Text style={styles.heading}>Explore Airbnb</Text>
+                    <View style={styles.categories}>
+                        <Categories categories={categoriesList}/>
+                    </View>
+                    {this.renderListings()}
+                </ScrollView>
             </View>
         )
     }
@@ -21,8 +49,25 @@ class InboxContainer extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        display: 'flex',
-        padding: 50
+        marginTop: 30,
+        flex: 1,
+        backgroundColor: colors.white
+    },
+    scrollViewContent: {
+        paddingBottom: 80
+    },
+    scrollView: {
+        paddingTop: 100
+    },
+    heading: {
+        fontSize: 22,
+        color: colors.gray04,
+        fontWeight: '600',
+        paddingLeft: 20,
+        paddingBottom: 20
+    },
+    categories: {
+        marginBottom: 40
     }
 })
 

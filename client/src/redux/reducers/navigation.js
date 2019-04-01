@@ -1,6 +1,6 @@
 import AppRouteConfigs from '../../navigators/AppRouteConfigs';
 
-const firstAction = AppRouteConfigs.router.getActionForPathAndParams('LoggedOut')
+const firstAction = AppRouteConfigs.router.getActionForPathAndParams('LoggedIn')
 const initialNavState = AppRouteConfigs.router.getStateForAction(firstAction)
 
 export const nav = (state = initialNavState, action) => {

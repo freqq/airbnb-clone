@@ -4,13 +4,33 @@ import InputField from '../components/form/InputField'
 import NextArrowButton from '../components/buttons/NextArrowButton'
 import Notification from '../components/Notification'
 import Loader from '../components/Loader'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import { ActionCreators } from '../redux/actions'
-import { transparentHeaderStyle } from '../styles/navigation'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {ActionCreators} from '../redux/actions'
 import {View, Text, ScrollView, StyleSheet, KeyboardAvoidingView} from 'react-native'
+import NavBarButton from '../components/buttons/NavBarButton'
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 class Login extends Component {
+    static navigationOptions = ({navigation}) => ({
+        headerRight: <NavBarButton
+            handleButtonPress={() => navigation.navigate('ForgotPassword')}
+            location="right"
+            color={colors.white}
+            text="Forgot Password"/>,
+        headerLeft: <NavBarButton
+            handleButtonPress={() => navigation.goBack()}
+            location="left"
+            icon={< Icon name = "angle-left" color = {
+            colors.white
+        }
+        size = {
+            30
+        } />}/>,
+        headerTransparent: true,
+        headerTintColor: colors.white
+    })
+
     state = {
         formValid: true,
         validEmail: false,
@@ -20,18 +40,13 @@ class Login extends Component {
         loadingVisible: false
     }
 
-    static navigationOptions = ({navigation}) => ({
-        headerTransparent: true,
-        headerTintColor: colors.white
-    })
-
     handleNextButton = () => {
         this.setState({loadingVisible: true})
-        const { navigate } = this.props.navigation
-        console.log(navigate)
+        const {navigate} = this.props.navigation
 
         setTimeout(() => {
-            if (this.state.emailAdress === 'hello@imandy.ie' && this.state.validPassword) {
+            const {emailAdress, validPassword, password} = this.state
+            if (emailAdress === 'hello@imandy.ie' && validPassword) {
                 this.setState({formValid: true})
                 navigate('TurnOnNotifications')
             } else {
@@ -39,7 +54,6 @@ class Login extends Component {
             }
             this.setState({loadingVisible: false})
         }, 2000)
-
     }
 
     handleCloseNotification = () => {
@@ -62,7 +76,6 @@ class Login extends Component {
     handlePasswordChange = (password) => {
         const {validPassword} = this.state;
         this.setState({password: password});
-
         if (!validPassword) {
             if (password.length > 4) {
                 this.setState({validPassword: true});
@@ -80,7 +93,7 @@ class Login extends Component {
     }
 
     render() {
-        const { formValid, loadingVisible, validEmail, validPassword } = this.state
+        const {formValid, loadingVisible, validEmail, validPassword} = this.state
         const showNotificaion = formValid
             ? false
             : true
@@ -90,7 +103,6 @@ class Login extends Component {
         const notificationMarginTop = showNotificaion
             ? 10
             : 0
-        console.log(this.props.loggedInStatus)
 
         return (
             <KeyboardAvoidingView
@@ -193,9 +205,7 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-    return {
-        loggedInStatus: state.loggedInStatus
-    }
+    return {loggedInStatus: state.loggedInStatus}
 }
 
 const mapDispatchToProps = (dispatch) => {
