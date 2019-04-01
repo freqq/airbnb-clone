@@ -33,7 +33,7 @@ class Login extends Component {
         setTimeout(() => {
             if (this.state.emailAdress === 'hello@imandy.ie' && this.state.validPassword) {
                 this.setState({formValid: true})
-                navigate('LoggedIn')
+                navigate('TurnOnNotifications')
             } else {
                 this.setState({formValid: false})
             }
