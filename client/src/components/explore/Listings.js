@@ -11,6 +11,7 @@ import {
     StyleSheet
 } from 'react-native'
 import colors from '../../styles/colors';
+import Stars from '../Stars'
 import HeartButton from '../buttons/HeartButton'
 
 class Listings extends Component {
@@ -30,8 +31,8 @@ class Listings extends Component {
         const {listings, showAddToFav} = this.props
         return listings.map((listing, index) => {
             return (
-                <TouchableHighlight style={styles.card}>
-                    <View style={styles.cardContent}>
+                <TouchableHighlight key={index} style={styles.card}>
+                    <View>
                         {showAddToFav
                             ? <View style={styles.addToFavouriteButton}>
                                     <HeartButton
@@ -48,6 +49,13 @@ class Listings extends Component {
                             styles.listingType
                         ]}>{listing.type}</Text>
                         <Text numberOfLines={2} style={styles.listingTitle}>{listing.title}</Text>
+                        <Text style={styles.listingPrice}>${listing.price} {listing.priceType}</Text>
+                        <Stars 
+                            key={listings.id}
+                            id={listings.id}
+                            size={10}
+                            color={colors.green02}
+                            votes={listing.stars} />
                     </View>
                 </TouchableHighlight>
             )
@@ -120,7 +128,6 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginBottom: 20
     },
-    cardContent: {},
     card: {
         marginRight: 6,
         width: 155,
@@ -149,6 +156,13 @@ const styles = StyleSheet.create({
         right: 12,
         top: 7,
         zIndex: 2
+    },
+    listingPrice: {
+        color: colors.gray04,
+        marginBottom: 2,
+        marginTop: 2,
+        fontSize: 12,
+        fontWeight: '300'
     }
 })
 

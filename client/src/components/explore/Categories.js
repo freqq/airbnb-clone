@@ -18,7 +18,7 @@ class Categories extends Component {
         const { categories } = this.props
         return categories.map((category, index) => {
             return (
-                <TouchableHighlight style={styles.card}>
+                <TouchableHighlight key={index} style={styles.card}>
                     <Image style={styles.image} source={category.photo}/>
                 </TouchableHighlight>
             )

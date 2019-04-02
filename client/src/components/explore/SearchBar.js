@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 80,
         zIndex: 99,
-        backgroundColor: colors.white
+        backgroundColor: colors.white,
+        paddingTop: 20
     },
     searchContainer: {
         display: 'flex',

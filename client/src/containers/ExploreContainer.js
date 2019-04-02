@@ -49,7 +49,6 @@ class InboxContainer extends Component {
 
 const styles = StyleSheet.create({
     wrapper: {
-        marginTop: 30,
         flex: 1,
         backgroundColor: colors.white
     },
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
         paddingBottom: 80
     },
     scrollView: {
-        paddingTop: 100
+        paddingTop: 120
     },
     heading: {
         fontSize: 22,
