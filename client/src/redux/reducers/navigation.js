@@ -1,7 +1,7 @@
 import AppRouteConfigs from '../../navigators/AppRouteConfigs';
 import { StatusBar } from 'react-native'
 
-const firstAction = AppRouteConfigs.router.getActionForPathAndParams('TurnOnNotifications')
+const firstAction = AppRouteConfigs.router.getActionForPathAndParams('LoggedIn')
 const initialNavState = AppRouteConfigs.router.getStateForAction(firstAction)
 
 export const nav = (state = initialNavState, action) => {

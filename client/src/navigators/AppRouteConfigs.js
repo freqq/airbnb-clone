@@ -6,13 +6,15 @@ import {
   import Login from '../screens/Login';
   import ForgotPassword from '../screens/ForgotPassword';
   import TurnOnNotifications from '../screens/TurnOnNotifications';
+  import CreateList from '../screens/CreateList'
   
   const AppRouteConfigs = createStackNavigator({
     LoggedOut: { screen: LoggedOut },
     LoggedIn: { screen: LoggedIn },
     Login: { screen: Login },
     ForgotPassword: { screen: ForgotPassword },
-    TurnOnNotifications: { screen: TurnOnNotifications }
+    TurnOnNotifications: { screen: TurnOnNotifications },
+    CreateList: { screen: CreateList }
   });
   
   export default AppRouteConfigs;

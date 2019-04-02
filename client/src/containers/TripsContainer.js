@@ -6,7 +6,7 @@ class InboxContainer extends Component {
     static navigationOptions = {
         tabBarLabel: 'TRIPS',
         tabBarIcon: ({ tintColor }) => (
-            <Icon name="ios-analytics" size={22} color={tintColor}/>
+            <Icon style={{marginTop: 6}} name="ios-analytics" size={22} color={tintColor}/>
         )
     }
 

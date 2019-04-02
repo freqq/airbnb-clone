@@ -10,8 +10,22 @@ import listings from '../data/listings'
 
 class InboxContainer extends Component {
     static navigationOptions = {
+        header: null,
         tabBarLabel: 'EXPLORE',
-        tabBarIcon: ({tintColor}) => (<Icon name="ios-search" size={22} color={tintColor}/>)
+        tabBarIcon: ({tintColor}) => (<Icon
+            style={{
+            marginTop: 6
+        }}
+            name="ios-search"
+            size={22}
+            color={tintColor}/>)
+    }
+
+    state = {}
+
+    handleAddToFav = () => {
+        const {navigate} = this.props.navigation
+        navigate('CreateList')
     }
 
     renderListings() {
@@ -23,6 +37,7 @@ class InboxContainer extends Component {
                         title={listing.title}
                         listings={listing.listings}
                         showAddToFav={listing.showAddToFav}
+                        handleAddToFav={this.handleAddToFav}
                         boldTitle={listing.boldTitle}/>
                 </View>
             )
