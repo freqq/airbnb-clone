@@ -4,7 +4,8 @@ import transparentHeaderStyle from '../styles/navigation'
 import colors from '../styles/colors'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {NavigationActions} from 'react-navigation'
-import {View, Text, TouchableHighlight, StyleSheet} from 'react-native'
+import {View, Text, TouchableHighlight} from 'react-native'
+import styles from './styles/TurnOnNotifications'
 
 const navigateToTabsAction = NavigationActions.navigate({
     routeName: 'LoggedIn'
@@ -39,62 +40,6 @@ class TurnOnNotifications extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        backgroundColor: colors.white
-    },
-    content: {
-        marginTop: 80,
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    icon: {
-        color: colors.green01,
-        marginBottom: 15
-    },
-    title: {
-        fontSize: 28,
-        color: colors.black,
-        fontWeight: '600'
-    },
-    description: {
-        fontSize: 16,
-        paddingRight: 30,
-        marginTop: 15,
-        lineHeight: 22
-    },
-    notifyButton: {
-        width: 160,
-        paddingTop: 12,
-        paddingBottom: 12,
-        borderRadius: 3,
-        marginTop: 40,
-        backgroundColor: colors.green01
-    },
-    notifyText: {
-        color: colors.white,
-        fontSize: 18,
-        fontWeight: '600',
-        alignSelf: 'center'
-    },
-    skipButton: {
-        width: 100,
-        borderColor: colors.green01,
-        borderWidth: 2,
-        borderRadius: 3,
-        paddingTop: 12,
-        paddingBottom: 12,
-        marginTop: 15
-    },
-    skipText: {
-        color: colors.green01,
-        alignSelf: 'center',
-        fontSize: 18,
-        fontWeight: '600'
-    }
-})
 
 TurnOnNotifications.propTypes = {
     navigation: PropTypes.shape({

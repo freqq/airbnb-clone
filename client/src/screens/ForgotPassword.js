@@ -4,10 +4,11 @@ import InputField from '../components/form/InputField'
 import Notification from '../components/Notification'
 import NextArrowButton from '../components/buttons/NextArrowButton'
 import Loader from '../components/Loader'
-import {View, Text, KeyboardAvoidingView, StyleSheet} from 'react-native'
+import {View, Text, KeyboardAvoidingView} from 'react-native'
 import transparentHeaderStyle from '../styles/navigation'
 import NavBarButton from '../components/buttons/NavBarButton'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import styles from './styles/ForgotPassword'
 
 class ForgotPassword extends Component {
     static navigationOptions = ({ navigation }) => ({
@@ -131,39 +132,5 @@ class ForgotPassword extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    wrapper: {
-        display: 'flex',
-        flex: 1
-    },
-    forgotPasswordHeading: {
-        color: colors.white,
-        fontSize: 28,
-        fontWeight: '300'
-    },
-    forgotPasswordSubheading: {
-        color: colors.white,
-        fontWeight: '600',
-        fontSize: 15,
-        marginTop: 10,
-        marginBottom: 60
-    },
-    form: {
-        marginTop: 90,
-        paddingLeft: 20,
-        paddingRight: 20
-    },
-    notificationWrapper: {
-        position: 'absolute',
-        bottom: 0
-    },
-    nextButton: {
-        alignItems: 'flex-end',
-        position: 'absolute',
-        right: 20,
-        bottom: 20
-    }
-})
 
 export default ForgotPassword

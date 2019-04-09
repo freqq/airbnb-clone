@@ -10,6 +10,7 @@ import {ActionCreators} from '../redux/actions'
 import {View, Text, ScrollView, StyleSheet, KeyboardAvoidingView} from 'react-native'
 import NavBarButton from '../components/buttons/NavBarButton'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import styles from './styles/Login'
 
 class Login extends Component {
     static navigationOptions = ({navigation}) => ({
@@ -171,39 +172,6 @@ class Login extends Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    wrapper: {
-        display: 'flex',
-        flex: 1
-    },
-    scrollViewWrapper: {
-        marginTop: 70,
-        flex: 1
-    },
-    loginHeader: {
-        fontSize: 28,
-        color: colors.white,
-        fontWeight: '300',
-        marginBottom: 40
-    },
-    scrollView: {
-        paddingTop: 30,
-        paddingRight: 30,
-        paddingLeft: 30,
-        flex: 1
-    },
-    nextButton: {
-        alignItems: 'flex-end',
-        right: 20,
-        bottom: 20
-    },
-    notificationWrapper: {
-        position: 'absolute',
-        bottom: 0
-    }
-})
-
 const mapStateToProps = (state) => {
     return {loggedInStatus: state.loggedInStatus}
 }

@@ -71,7 +71,8 @@ HeartButton.propTypes = {
     color: PropTypes.string.isRequired,
     selectedColor: PropTypes.string.isRequired,
     itemId: PropTypes.number.isRequired,
-    onPress: PropTypes.func
+    onPress: PropTypes.func,
+    selected: PropTypes.bool
 }
 
 export default HeartButton

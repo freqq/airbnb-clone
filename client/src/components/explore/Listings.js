@@ -27,40 +27,46 @@ class Listings extends Component {
         return colorsOb[Math.floor(Math.random() * colorsOb.length)]
     }
 
-    renderListings = () => {
-        const {listings, showAddToFav, handleAddToFav} = this.props
-        return listings.map((listing, index) => {
-            return (
-                <TouchableHighlight key={index} style={styles.card}>
-                    <View>
-                        {showAddToFav
-                            ? <View style={styles.addToFavouriteButton}>
-                                    <HeartButton
-                                        color={colors.white}
-                                        onPress={handleAddToFav}
-                                        selectedColor={colors.pink}/>
-                                </View>
-                            : null}
-                        <Image resizeMode="contain" source={listing.photo} style={styles.image}/>
-                        <Text
-                            style={[
-                            {
-                                color: this.randomColor
-                            },
-                            styles.listingType
-                        ]}>{listing.type}</Text>
-                        <Text numberOfLines={2} style={styles.listingTitle}>{listing.title}</Text>
-                        <Text style={styles.listingPrice}>${listing.price} {listing.priceType}</Text>
-                        <Stars 
-                            key={listings.id}
-                            id={listings.id}
-                            size={10}
-                            color={colors.green02}
-                            votes={listing.stars} />
-                    </View>
-                </TouchableHighlight>
-            )
-        })
+    renderListings() {
+        const {listings, showAddToFav, handleAddToFav, favouriteListings} = this.props;
+        return listings.map((listing, index) => (
+            <TouchableHighlight style={styles.card} key={`listing-${index}`}>
+                <View>
+                    {showAddToFav
+                        ? (
+                            <View style={styles.addToFavouriteBtn}>
+                                <HeartButton
+                                    color={colors.white}
+                                    selectedColor={colors.pink}
+                                    selected={favouriteListings.indexOf(listing.id) > -1}
+                                    onPress={() => handleAddToFav(listing)}/>
+                            </View>
+                        )
+                        : null}
+                    <Image style={styles.image} resizeMode="contain" source={listing.photo}/>
+                    <Text
+                        style={[
+                        {
+                            color: listing.color
+                        },
+                        styles.listingType
+                    ]}>
+                        {listing.type}
+                    </Text>
+                    <Text style={styles.listingTitle} numberOfLines={2}>
+                        {listing.title}
+                    </Text>
+                    <Text style={styles.listingPrice}>
+                        $ {listing.price}
+                        {' '}
+                        {listing.priceType}
+                    </Text>
+                    {listing.stars > 0
+                        ? (<Stars votes={listing.stars} size={10} color={colors.green02}/>)
+                        : null}
+                </View>
+            </TouchableHighlight>
+        ));
     }
 
     render() {
@@ -152,7 +158,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 10
     },
-    addToFavouriteButton: {
+    addToFavouriteBtn: {
         position: 'absolute',
         right: 12,
         top: 7,

@@ -21,11 +21,31 @@ class InboxContainer extends Component {
             color={tintColor}/>)
     }
 
-    state = {}
+    state = {
+        favouriteListings: []
+    }
 
-    handleAddToFav = () => {
-        const {navigate} = this.props.navigation
-        navigate('CreateList')
+    handleAddToFav = (listing) => {
+        const {navigate} = this.props.navigation;
+        let {favouriteListings} = this.state;
+
+        const index = favouriteListings.indexOf(listing.id);
+        if (index > -1) {
+            favouriteListings = favouriteListings.filter(item => item !== listing.id);
+            this.setState({favouriteListings});
+        } else {
+            navigate('CreateList', {listing, onCreateListClose: this.onCreateListClose});
+        }
+    }
+
+    onCreateListClose(listingId, listCreated) {
+        let {favouriteListings} = this.state;
+        if (listCreated) {
+            favouriteListings.push(listingId);
+        } else {
+            favouriteListings = favouriteListings.filter(item => item !== listingId);
+        }
+        this.setState({favouriteListings});
     }
 
     renderListings() {
@@ -38,10 +58,21 @@ class InboxContainer extends Component {
                         listings={listing.listings}
                         showAddToFav={listing.showAddToFav}
                         handleAddToFav={this.handleAddToFav}
+                        favouriteListings={this.state.favouriteListings}
                         boldTitle={listing.boldTitle}/>
                 </View>
             )
         })
+    }
+
+    onCreateListClose(listingId, listCreated) {
+        let {favouriteListings} = this.state;
+        if (listCreated) {
+            favouriteListings.push(listingId);
+        } else {
+            favouriteListings = favouriteListings.filter(item => item !== listingId);
+        }
+        this.setState({favouriteListings});
     }
 
     render() {
