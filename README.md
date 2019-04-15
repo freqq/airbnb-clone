@@ -1,15 +1,8 @@
 # airbnb-clone
-  <li>dasda<li>
 
 Mobile app clone of 'airbnb' (React Native/GraphQL/Apollo)
 
 TODO: GraphQL Server
-
-<ul>
-  <li>dasda<li>
-  <li>dasda<li>
-  <li>dasda<li>
- </ul>
 <table>
   <tr>
     <td><img src="client/screenshots/log_in.png" width="200"></td>
